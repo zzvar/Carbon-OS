@@ -21,7 +21,7 @@ db 0,0,0x29
 dd 0xffffffff
 db "CarbonOS"
 db "FAT12"
-resb 18
+db 18
 entry:
     mov ax,0
     mov ss,ax
@@ -81,7 +81,7 @@ msg:
     db "Carbon OS IPL test success"
     db 0x0a
     db 0
-    resb 0x7dfe - $
+    db 0x7dfe - $
     db 0x55,0xaa
 ;Another Sector
 org 0x8200
