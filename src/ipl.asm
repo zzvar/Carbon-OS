@@ -83,6 +83,24 @@ msg:
     db 0
     resb 0x7dfe - $
     db 0x55,0xaa
+;Another Sector
+org 0x8200
+oth:
+    mov si,bot
+loop2:
+    mov al,[si]
+    add si,1
+    cmp al,0
+    je fin
+    mov ah,0x0e
+    mov bx,15
+    int 0x10
+    jmp loop2
 fin:
     hlt
     jmp fin
+bot:
+    db 0x0a,0x0a
+    db "Testing.."
+    db 0x0a
+    db 0
