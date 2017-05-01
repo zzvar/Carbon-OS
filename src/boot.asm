@@ -1,27 +1,50 @@
-;fat12 boot sector
-org 0x7c00
-jmp _START
-times 3-($-$$) nop
-db "Carbon OS Team"
-dw 512
-db 1
-dw 1
-db 2
-dw 224
-dw 2880
-db 0xf0
-dw 9
-dw 18
-dw 2
-dd 0
-dd 2880
-db 0,0,0x29
-dd 0xffffffff
-db "Carbon OS v0.1 amd64"
-db "File System:FAT12"
-times 18 db 0
-_START:
-    mov ax,0
+;定义开始扇区的位置
+BEGINSECTION  	EQU		2
+;定义柱面
+CYLINDER    EQU     0
+;定义磁道
+HEAD       EQU     0
+;定义要读取的扇区数
+COUNTSECTION       EQU     10
+;读取到的位置
+BEIGNSEGMENT		EQU		0x0800
+OFFICE		EQU		0x0000
+
+
+;以下定义ipl的内容
+org 07c00h 
+jmp LABEL_BEGIN
+[SECTION .s16]
+[BITS	16]
+;---------------------------------
+;清理屏幕
+ClrSc:			
+	mov ah,0x00
+	mov al,0x03
+	int 10h
+    ret
+;-------------------------------------
+;读取扇区内容
+Read:
+	mov ax,BEIGNSEGMENT
+	mov es,ax
+	mov ah,0x02 ;功能号
+	mov al,COUNTSECTION   ;扇区数
+	mov cl,BEGINSECTION	;扇区
+	mov ch,CYLINDER	;柱面
+	mov dh,HEAD	;磁头
+	mov dl,0	;驱动器
+	mov bx,OFFICE	
+	int 13h
+	ret
+;---------------------------
+;开始运行的位置
+LABEL_BEGIN:
+	mov ax, cs
+	mov ds, ax
+	mov es, ax
+	call ClrSc
+	call Read
 	mov si,msg
 _LOOP:
     mov al,[si]
@@ -33,13 +56,13 @@ _LOOP:
 	int 0x10
 	jmp _LOOP
 _END:
-    jmp $
+	jmp $
+
+	;jmp	BEIGNSEGMENT:OFFICE
 msg db 0x0a,"----------------------------------",0x0d,0x0a,\
-         "|            Carbon OS           |",0x0d,0x0a,\
-		 "----------------------------------",0x0d,0x0a,0x0
-    times 510-($-$$) db 0
-	dw 0xaa55
-	db 0xf0,0xff,0xff,0x00,0x00,0x00,0x00
-	times 4600 db 0
-	db 0xf0,0xff,0xff,0x00,0x00,0x00,0x00
-	times 1469432 db 0
+            "|            Carbon OS           |",0x0d,0x0a,\
+			"|        version 0.1 alpha       |",0x0d,0x0a,\
+			"|          Carbon OS Team        |",0x0d,0x0a,\
+	        "----------------------------------",0x0d,0x0a,0x0
+times 510-4-($-$$) db 0
+dw 0xaa55
