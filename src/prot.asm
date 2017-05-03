@@ -14,8 +14,8 @@ dw 0x0b40
 db 0x0f0
 dw 9
 dw 18
-dw 2 ;读写扇区号
-dw 0 ;隐藏扇区号
+dw 2
+dw 0
 print:
     mov ah,0x13
     mov al,0x00
