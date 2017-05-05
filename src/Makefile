@@ -1,5 +1,5 @@
-a.img:boot.asm test.asm
-	nasm boot.asm -o boot.bin 
-	nasm test.asm -o test.bin 
-	dd of=carbon.img if=boot.bin conv=notrunc
-	dd of=carbon.img if=test.bin bs=512 seek=1 conv=notrunc
+a.img:boot/boot.asm boot/test.asm
+	nasm boot/boot.asm -o bin/boot.bin 
+	nasm boot/test.asm -o bin/test.bin 
+	dd of=out/carbon.img if=bin/boot.bin conv=notrunc
+	dd of=out/carbon.img if=bin/test.bin bs=512 seek=1 conv=notrunc
