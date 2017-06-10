@@ -1,9 +1,0 @@
-nasm -f bin src/about.asm -o out/about
-nasm -f bin src/bootloader.asm -o out/bootloader
-nasm -f bin src/echo.asm -o out/echo
-nasm -f bin src/exit.asm -o out/exit
-nasm -f bin src/help.asm -o out/help
-nasm -f bin src/kernel.asm -o out/kernel
-nasm -f bin src/reg.asm -o out/reg
-nasm -f bin src/vidmem.asm -o out/vidmem
-gcc -o out/cpy src/create_floppy.c

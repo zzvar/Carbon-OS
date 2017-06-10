@@ -5,6 +5,8 @@ mov ax,cs
 mov ds,ax
 mov es,ax
 pop ax
+;push testt
+;call print
 push axx
 push ax
 call tohex
@@ -45,38 +47,38 @@ push fss
 push fs
 call tohex
 jmp 0x1000:0
-print:
+print: ;print a zero terminated string
 	pusha
 	mov bp,sp
-	mov si,[bp + 18] 
+	mov si,[bp+18] 
 	cont:
-		lodsb
-		or al,al
-		jz dne
-		mov ah,0x0e
-		mov bx,0
-		mov bl,7
-		int 10h
-		jmp cont
+	    lodsb
+	    or al,al
+	    jz dne
+	    mov ah,0x0e
+	    mov bx,0
+	    mov bl,7
+	    int 10h
+	    jmp cont
 	dne:
-		mov sp,bp
-		popa
-		ret
+	    mov sp,bp
+	    popa
+	    ret
 tohex:
 	pusha
 	mov bp,sp
-	mov dx,[bp + 20]
+	mov dx, [bp+20]
 	push dx	
 	call print
-	mov dx,[bp + 18]
+	mov dx,[bp+18]
 	mov cx,4
 	mov si,hexc
-	mov di,hex + 2
+	mov di,hex+2
 	stor:
 	    rol dx,4
 	    mov bx,15
 	    and bx,dx
-	    mov al, [si + bx]
+	    mov al, [si+bx]
 	    stosb
 	    loop stor
 	    push hex

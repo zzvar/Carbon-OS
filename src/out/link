@@ -1,4 +1,0 @@
-echo linking...
-dd if=/dev/zero of=carbon.img bs=512 count=1
-mkfs.vfat carbon.img
-./cpy carbon.img bootloader kernel about vidmem echo help exit reg
