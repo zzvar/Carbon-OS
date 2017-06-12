@@ -2,9 +2,9 @@ dev = carbon.img
 ASMFLAGS = -f bin
 
 
-all:bootloader os  about vidmem echo help exit reg install
+all:bootloader os  about vidmem echo help reboot reg install
 	dd if=/dev/zero of=carbon.img count=1
-	./cpy $(dev) bootloader os about vidmem echo help exit reg
+	./cpy $(dev) bootloader os about vidmem echo help reboot reg
 	@echo "Done...Written to disk"
 	
 
@@ -32,8 +32,8 @@ vidmem:vidmem.asm
 echo:echo.asm
 	nasm $(ASMFLAGS) echo.asm
 
-exit:exit.asm
-	nasm $(ASMFLAGS) exit.asm
+reboot:reboot.asm
+	nasm $(ASMFLAGS) reboot.asm
 
 
 install:cpy.c
@@ -47,6 +47,6 @@ clean:
 	rm -rf filetable
 	rm help
 	rm reg
-	rm exit
+	rm reboot
 	rm carbon.img
 	rm cpy

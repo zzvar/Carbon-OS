@@ -17,4 +17,4 @@ printstr:
 	mov cx,161; strlen 
 	int 0x10
         ret
-msg db "echo - reads a user input and echoes it back to screen",10,13,"reg - dumps registers",10,13,"vidmem - demonstrates writing to Video Memory",10,13,"exit - reboot",10,13,"about - general info"
+msg db "echo - reads a user input and echoes it back to screen",10,13,"reg - dumps registers",10,13,"vidmem - demonstrates writing to Video Memory",10,13,"reboot - reboot",10,13,"about - general info"
