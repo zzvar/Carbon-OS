@@ -50,3 +50,5 @@ clean:
 	rm reboot
 	rm carbon.img
 	rm cpy
+run:
+	qemu-system-x86_64 -hda carbon.img
