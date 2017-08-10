@@ -1,0 +1,4 @@
+file carbon_origin_kernel
+target remote :1234
+break kernel_entry
+c

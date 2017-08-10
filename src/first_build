@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+sudo apt install gcc build-essential binutils nasm qemu cgdb -y
+echo Download file finish
+echo Enjoy!

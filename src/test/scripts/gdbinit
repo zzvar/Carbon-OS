@@ -1,4 +1,0 @@
-file carbon_kernel
-target remote :1234
-break kernel_entry
-c
